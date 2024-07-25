@@ -1,10 +1,3 @@
-import cv2
-import numpy as np
-import matplotlib.pyplot as plt
-from math import tau
-import os
-
-
 import streamlit as st
 
 from streamlit_webrtc import webrtc_streamer
