@@ -12,6 +12,7 @@ from streamlit_webrtc import webrtc_streamer
 import av
 
 
+
 def video_frame_callback(frame):
     img = frame.to_ndarray(format="bgr24")
 
