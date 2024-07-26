@@ -46,7 +46,6 @@ multidict==6.0.5
 networkx==3.3
 numpy==1.26.4
 opencv-contrib-python==4.10.0.84
-opencv-python==4.10.0.84
 opencv-python-headless==4.10.0.84
 opt-einsum==3.3.0
 packaging==24.1
