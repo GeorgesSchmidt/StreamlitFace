@@ -1,5 +1,4 @@
+streamlit
+streamlit_webrtc
 opencv-python-headless
-streamlit-webrtc
-ultralytics
-supervision
-twilio
+matplotlib
