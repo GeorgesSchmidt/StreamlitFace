@@ -5,7 +5,6 @@ import threading
 import av
 import cv2
 from matplotlib import pyplot as plt
-
 from FaceAnalysis.detectLandmark import Detect
 
 lock = threading.Lock()
