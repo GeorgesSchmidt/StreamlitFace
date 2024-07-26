@@ -2,7 +2,6 @@ import streamlit as st
 import numpy as np
 from streamlit_webrtc import WebRtcMode, webrtc_streamer
 import av
-import cv2
 import queue
 from typing import List, NamedTuple
 from ultralytics import YOLO
@@ -66,7 +65,7 @@ def put_text(frame, texte, p, color):
     font = 1
     font_scale = 1.0
     thick = 1
-    cv2.putText(frame, texte, p, font, font_scale, color, thick)
+    #cv2.putText(frame, texte, p, font, font_scale, color, thick)
 
 def video_frame_callback(frame: av.VideoFrame) -> av.VideoFrame:
     image = frame.to_ndarray(format="bgr24")
@@ -80,7 +79,7 @@ def video_frame_callback(frame: av.VideoFrame) -> av.VideoFrame:
                 color = colors[num]
             texte = names[num]
             x, y, w, h = np.array(detect[0]).astype(int)
-            cv2.rectangle(image, (x, y), (w, h), color, 2)
+            #cv2.rectangle(image, (x, y), (w, h), color, 2)
             p = [x, y-20]
             put_text(image, texte, p, color=color)
             
