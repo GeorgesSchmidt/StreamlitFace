@@ -55,6 +55,30 @@ colors = [
     (255, 165, 0), (75, 0, 130), (255, 192, 203), (245, 245, 220), (220, 20, 60)
 ]
 
+def get_face(frame):
+    face_frontal_cascade = cv2.CascadeClassifier(cv2.data.haarcascades + 'haarcascade_frontalface_alt.xml')
+    face_profile_cascade = cv2.CascadeClassifier(cv2.data.haarcascades + 'haarcascade_profileface.xml')
+    
+    minSize = (20, 20)
+    minNeighbors = 5
+    factor = 1.1
+    gray = cv2.cvtColor(frame, cv2.COLOR_BGR2GRAY)
+    gray = cv2.equalizeHist(gray)
+    faces_frontal = face_frontal_cascade.detectMultiScale(gray, scaleFactor=factor, minNeighbors=minNeighbors,
+                                                        minSize=minSize)
+    faces_profile = face_profile_cascade.detectMultiScale(gray, scaleFactor=factor, minNeighbors=minNeighbors,
+                                                        minSize=minSize)
+    boxes = []
+    for (x, y, w, h) in faces_frontal:
+        h *= 2
+        boxes.append([x, y, w, h])
+    
+    for (x, y, w, h) in faces_profile:
+        h *= 2
+        boxes.append([x, y, w, h])
+        
+    return boxes
+
 def put_text(frame, texte, p, color):
     font = 1
     font_scale = 1.0
@@ -64,7 +88,11 @@ def put_text(frame, texte, p, color):
 def video_frame_callback(frame: av.VideoFrame) -> av.VideoFrame:
     image = frame.to_ndarray(format="bgr24")
     
-            
+    boxes = get_face(image)
+    for box in boxes:
+        x, y, w, h = box
+        print(x, y, w, h)
+        cv2.rectangle(image, (x, y), (x+w, y+h), (0, 255, 0), 2)
         
     
     return av.VideoFrame.from_ndarray(image, format="bgr24")
