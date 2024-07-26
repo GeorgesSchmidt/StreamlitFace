@@ -1,17 +1,18 @@
 import streamlit as st
+import sys
 
 from streamlit_webrtc import webrtc_streamer
 import threading
 import av
 import cv2
 from matplotlib import pyplot as plt
-from FaceAnalysis.detectLandmark import Detect
+
+
 
 lock = threading.Lock()
 img_container = {"img": None}
 
 
-model = Detect()
 
 def video_frame_callback(frame):
     img = frame.to_ndarray(format="bgr24")
@@ -35,10 +36,9 @@ while ctx.state.playing:
     
     gray = cv2.cvtColor(img, cv2.COLOR_BGR2GRAY)
     color_rgb = cv2.cvtColor(img, cv2.COLOR_BGR2RGB)
-    frame = model.detect_on_image(color_rgb)
+    
     ax.cla()
-    if frame is not None:
-            ax.imshow(frame)
+    
     
     #ax.hist(gray.ravel(), 256, [0, 256])
     fig_place.pyplot(fig)
