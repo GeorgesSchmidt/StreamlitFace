@@ -2,6 +2,4 @@ streamlit
 streamlit_webrtc
 opencv-python-headless
 matplotlib
-ultralytics
-supervision
 twilio
