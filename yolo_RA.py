@@ -6,6 +6,7 @@ from typing import List, NamedTuple
 import cv2
 import logging
 from ultralytics import YOLO
+import supervision as sv
 import os
 from twilio.base.exceptions import TwilioRestException
 from twilio.rest import Client
@@ -57,6 +58,8 @@ colors = [
     (255, 165, 0), (75, 0, 130), (255, 192, 203), (245, 245, 220), (220, 20, 60)
 ]
 
+model = YOLO('yolov8s.pt')
+names = model.names
 
 def put_text(frame, texte, p, color):
     font = 1
@@ -66,7 +69,12 @@ def put_text(frame, texte, p, color):
     
 def video_frame_callback(frame: av.VideoFrame) -> av.VideoFrame:
     image = frame.to_ndarray(format="bgr24")
-    
+    results = model(image, verbose=False)[0]
+   
+    if results is not None:
+        print('results', len(results))
+        print(results)
+        
     
     
     return av.VideoFrame.from_ndarray(image, format="bgr24")
